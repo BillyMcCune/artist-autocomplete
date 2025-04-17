@@ -2,6 +2,14 @@
 
 This project extracts title and lyrics data from CSV files for the artist autocomplete feature.
 
+## Prerequisites
+
+- Git ≥ 2.13  
+- **Git LFS** – install from https://git-lfs.github.com/  
+  - macOS: `brew install git-lfs && git lfs install`  
+  - Ubuntu: `sudo apt install git-lfs && git lfs install`  
+  - Windows: `choco install git-lfs && git lfs install`
+
 ## Environment Setup
 
 ### Option 1: Using pip (recommended for most users)
