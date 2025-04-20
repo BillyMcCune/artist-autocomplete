@@ -90,14 +90,13 @@ class MarkovModel:
         Returns:
             str: Generated line
         """
-        # Process seed if provided
+
         if seed:
             if isinstance(seed, str):
                 seed_words = seed.lower().split()
             else:
                 seed_words = [word.lower() for word in seed]
                 
-            # Use seed words if possible
             if len(seed_words) >= self.order:
                 current_state = tuple(seed_words[-self.order:])
                 line = list(seed_words)
@@ -116,7 +115,6 @@ class MarkovModel:
                 current_state = random.choice(self.start_states)
             line = list(current_state)
         
-        # Generate the line
         for _ in range(max_length - len(line)):
             if current_state not in self.model:
                 break
@@ -124,7 +122,7 @@ class MarkovModel:
             next_words = self.model[current_state]
             
             if temperature != 1.0:
-                # Apply temperature scaling by sampling with probabilities
+
                 word_counts = {}
                 for word in next_words:
                     if word in word_counts:
@@ -143,7 +141,6 @@ class MarkovModel:
                 
             line.append(next_word)
             
-            # Update state
             current_state = tuple(line[-self.order:])
             
         return ' '.join(line)
@@ -160,7 +157,7 @@ class MarkovModel:
         with open(file_path, 'wb') as f:
             pickle.dump({
                 'order': self.order,
-                'model': dict(self.model),  # Convert defaultdict to dict for serialization
+                'model': dict(self.model), 
                 'start_states': self.start_states
             }, f)
         
@@ -189,31 +186,3 @@ class MarkovModel:
         print(f"Number of states: {len(model.model)}")
         
         return model
-
-
-if __name__ == "__main__":
-    # Test the model
-    from parser import process_file
-    import sys
-    
-    if len(sys.argv) > 1:
-        file_path = sys.argv[1]
-        sentences = process_file(file_path)
-        
-        if sentences:
-            model = MarkovModel(order=2)
-            model.train(sentences)
-            
-            print("\nGenerating sample lyrics:")
-            lines = model.generate(num_lines=5, max_length=20)
-            for i, line in enumerate(lines):
-                print(f"{i+1}. {line}")
-                
-            # Test with seed
-            seed = "love is"
-            print(f"\nGenerating with seed '{seed}':")
-            lines = model.generate(num_lines=3, seed=seed)
-            for i, line in enumerate(lines):
-                print(f"{i+1}. {line}")
-    else:
-        print("Please provide a file path to test the model.")

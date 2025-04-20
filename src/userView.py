@@ -5,12 +5,12 @@ from tkinter import scrolledtext, messagebox, ttk
 from model import MarkovModel
 from parser import process_file
 
-# Determine the absolute path of the directory where this script resides.
+#determine the absolute path of the directory where this script resides.
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Construct the absolute path for the 'data' folder relative to the script.
+#construct the absolute path for the 'data' folder relative to the script.
 folder_path = os.path.join(script_dir, "..", "data")
-folder_path = os.path.abspath(folder_path)  # Normalize the path
+folder_path = os.path.abspath(folder_path) 
 
 print("Data folder path:", folder_path)  
 
@@ -40,15 +40,15 @@ def main():
     root.title("Artist Autocomplete - Lyrics Generator")
     root.minsize(600, 500)
 
-    # Create main frame
+    #create main frame
     main_frame = ttk.Frame(root, padding="10")
     main_frame.pack(fill=tk.BOTH, expand=True)
 
-    # Input frame (left side)
+    #input frame (left side)
     input_frame = ttk.LabelFrame(main_frame, text="Parameters", padding="10")
     input_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=False, padx=(0, 5))
 
-    # File selection
+    #file selection
     ttk.Label(input_frame, text="Select lyrics file:").grid(row=0, column=0, sticky=tk.W, pady=2)
     file_var = tk.StringVar(root)
     file_var.set(files[0])
@@ -60,36 +60,36 @@ def main():
     seed_input = ttk.Entry(input_frame, width=30)
     seed_input.grid(row=1, column=1, sticky=tk.W, pady=2)
 
-    # Number of lines
+    #number of lines
     ttk.Label(input_frame, text="Number of lines:").grid(row=2, column=0, sticky=tk.W, pady=2)
     lines_input = ttk.Entry(input_frame, width=10)
     lines_input.insert(0, "5")
     lines_input.grid(row=2, column=1, sticky=tk.W, pady=2)
 
-    # Temperature
+    #temperature
     ttk.Label(input_frame, text="Temperature:").grid(row=3, column=0, sticky=tk.W, pady=2)
     temp_input = ttk.Entry(input_frame, width=10)
     temp_input.insert(0, "1.0")
     temp_input.grid(row=3, column=1, sticky=tk.W, pady=2)
 
-    # Order
+    #order
     ttk.Label(input_frame, text="Markov chain order:").grid(row=4, column=0, sticky=tk.W, pady=2)
     order_input = ttk.Entry(input_frame, width=10)
     order_input.insert(0, "2")
     order_input.grid(row=4, column=1, sticky=tk.W, pady=2)
 
-    # Results frame (right side)
+    #results frame (right side)
     results_frame = ttk.Frame(main_frame)
     results_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
-    # Generated lyrics
+    #generated lyrics
     ttk.Label(results_frame, text="Generated Lyrics:").pack(anchor=tk.W)
     result_text = scrolledtext.ScrolledText(results_frame, height=15, width=40, wrap=tk.WORD)
     result_text.pack(fill=tk.BOTH, expand=True)
     result_text.insert(tk.END, "Generated lyrics will appear here")
     result_text.config(state=tk.DISABLED)
     
-    # Status bar
+    #status bar
     status_var = tk.StringVar()
     status_var.set("Ready")
     status_bar = ttk.Label(input_frame, textvariable=status_var, relief=tk.SUNKEN, anchor=tk.W)
@@ -158,7 +158,6 @@ def main():
             messagebox.showerror("Generation Error", f"An error occurred: {str(e)}")
             status_var.set(f"Error: {str(e)}")
 
-    # Generate button
     generate_button = ttk.Button(input_frame, text="Generate Lyrics", command=generate_lyrics)
     generate_button.grid(row=5, column=0, columnspan=2, pady=(20, 5))
 

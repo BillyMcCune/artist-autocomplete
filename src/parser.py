@@ -59,7 +59,11 @@ def process_file(file_path):
             with open(file_path, 'r', encoding='utf-8') as f:
                 lyrics_text = f.read()
         
-        # Split into sentences (by newlines and punctuation)
+        lyrics_text = lyrics_text.lower()
+        
+
+        lyrics_text = re.sub(r'[^\w\s.,!?\()" -]+', '', lyrics_text)
+        
         sentences = re.split(r'[.!?;\n]', lyrics_text)
         
         # Clean each sentence

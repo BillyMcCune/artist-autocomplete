@@ -9,16 +9,14 @@ from model import MarkovModel
 def main():
     parser = argparse.ArgumentParser(description='Artist Autocomplete - Generate lyrics using Markov chains')
     
-    # Input options
+
     parser.add_argument('--input', '-i', help='Path to lyrics file or directory')
     parser.add_argument('--list-files', '-l', action='store_true', help='List available lyrics files')
     
-    # Model options
     parser.add_argument('--order', '-o', type=int, default=2, help='Order of the Markov model (default: 2)')
     parser.add_argument('--save-model', '-s', help='Save trained model to file')
     parser.add_argument('--load-model', '-m', help='Load trained model from file')
     
-    # Generation options
     parser.add_argument('--lines', '-n', type=int, default=5, help='Number of lines to generate (default: 5)')
     parser.add_argument('--max-length', type=int, default=30, help='Maximum line length in words (default: 30)')
     parser.add_argument('--temperature', '-t', type=float, default=1.0, 
