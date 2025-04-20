@@ -69,7 +69,7 @@ cd artist-autocomplete
 2. Make the script executable:
 ```bash
 chmod +x artist_autocomplete.py
-chmod +x run_gui.py
+chmod +x run_application.py
 ```
 
 ## Usage
@@ -79,7 +79,7 @@ chmod +x run_gui.py
 The easiest way to use Artist Autocomplete is through the GUI:
 
 ```bash
-./run_gui.py
+./run_application.py
 ```
 
 This will open a user interface where you can:
