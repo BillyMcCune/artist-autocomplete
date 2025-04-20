@@ -7,7 +7,7 @@ A Python application that generates song lyrics in the style of your favorite ar
 - Train on individual lyrics files or entire directories
 - Support for various file formats (TXT, CSV, JSON)
 - Customizable Markov chain order
-- Adjustable generation parameters (seed text, temperature, length)
+- Adjustable generation parameters (seed text, length)
 - Save and load trained models
 - GUI interface for easy lyrics generation
 
@@ -37,7 +37,7 @@ The easiest way to use Artist Autocomplete is through the GUI:
 
 This will open a user interface where you can:
 - Select any lyrics file from the data directory
-- Set parameters like number of lines, temperature, and Markov chain order
+- Set parameters like number of lines and Markov chain order
 - Add optional seed text to start the generation
 - View the generated lyrics and artist information in a clean interface
 
@@ -87,7 +87,7 @@ Generate lyrics using a saved model:
 Generate lyrics by training on the fly:
 
 ```bash
-./artist_autocomplete.py generate --input data/sample_lyrics.txt --seed "I want to" --temp 0.8
+./artist_autocomplete.py generate --input data/sample_lyrics.txt --seed "I want to"
 ```
 
 Options:
@@ -96,7 +96,6 @@ Options:
 - `--order`, `-o`: Order of the Markov model (default: 2)
 - `--lines`, `-l`: Number of lines to generate (default: 5)
 - `--seed`: Seed text to start generation
-- `--temp`, `-t`: Temperature for randomness (default: 1.0)
 
 ## How It Works
 
@@ -104,10 +103,6 @@ Artist Autocomplete uses Markov chains to learn the patterns in an artist's lyri
 
 - Lower order (1-2): More random, less coherent
 - Higher order (3+): More coherent, but may copy longer phrases from the original
-
-The "temperature" parameter controls randomness in generation:
-- Lower values (<1.0): More predictable, favors common patterns
-- Higher values (>1.0): More random, less predictable
 
 ## License
 

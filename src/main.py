@@ -2,8 +2,8 @@
 import os
 import sys
 import argparse
-from parser import process_file, get_available_files
-from model import MarkovModel
+from src.application.model.parser.parser import process_file, get_available_files
+from src.application.model.model import MarkovModel
 
 
 def main():
