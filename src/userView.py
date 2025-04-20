@@ -30,36 +30,6 @@ def get_lyric_files():
     
     return files
 
-def display_artist_info(file_path, artist_info):
-    """Display artist and song metadata if available."""
-    if not file_path.endswith('_artist.txt'):
-        # Try to find corresponding artist file
-        base_name = os.path.splitext(file_path)[0]
-        artist_file = f"{base_name}_artist.txt"
-        if not os.path.exists(artist_file):
-            artist_file = os.path.join(folder_path, f"{os.path.basename(base_name)}_artist.txt")
-    else:
-        artist_file = file_path
-    
-    # Clear previous content
-    artist_info.config(state=tk.NORMAL)
-    artist_info.delete(1.0, tk.END)
-    
-    try:
-        if os.path.exists(artist_file):
-            with open(artist_file, 'r', encoding='utf-8') as f:
-                metadata = f.read()
-            artist_info.insert(tk.END, metadata)
-            return True
-        else:
-            artist_info.insert(tk.END, "No artist metadata available")
-            return False
-    except Exception as e:
-        artist_info.insert(tk.END, f"Error reading artist info: {e}")
-        return False
-    finally:
-        artist_info.config(state=tk.DISABLED)
-
 def main():
     """Main function to create and run the GUI"""
     # Get available files
@@ -111,13 +81,6 @@ def main():
     # Results frame (right side)
     results_frame = ttk.Frame(main_frame)
     results_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
-
-    # Artist info
-    ttk.Label(results_frame, text="Artist Information:").pack(anchor=tk.W)
-    artist_info = scrolledtext.ScrolledText(results_frame, height=6, width=40, wrap=tk.WORD)
-    artist_info.pack(fill=tk.X, pady=(0, 10))
-    artist_info.insert(tk.END, "Artist information will appear here")
-    artist_info.config(state=tk.DISABLED)
 
     # Generated lyrics
     ttk.Label(results_frame, text="Generated Lyrics:").pack(anchor=tk.W)
@@ -183,9 +146,7 @@ def main():
             result_text.delete(1.0, tk.END)
             result_text.insert(tk.END, "\n".join(lyrics))
             result_text.config(state=tk.DISABLED)
-            
-            # Display artist info
-            display_artist_info(file_path, artist_info)
+        
             
             # Update status
             status_var.set(f"Successfully generated {len(lyrics)} lines of lyrics")
@@ -205,14 +166,12 @@ def main():
     def on_file_select(*args):
         selected_file = file_var.get()
         file_path = os.path.join(folder_path, selected_file)
-        display_artist_info(file_path, artist_info)
 
     file_var.trace("w", on_file_select)
     
     # Initialize with first file's artist info if available
     if files[0] != "No files found":
         file_path = os.path.join(folder_path, files[0])
-        display_artist_info(file_path, artist_info)
 
     # Start the main loop
     root.mainloop()
